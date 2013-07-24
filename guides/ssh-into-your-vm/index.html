@@ -16,9 +16,8 @@
     </header>
     <div id="sidebar"><ul>
 <li><a href="/docs/">Home</a></li>
-<li><a href="/docs/#feature-exploration">Feature Exploration</a></li>
 <li><a href="/docs/#frequently-asked-questions">FAQ</a></li>
-<li><a href="/docs/#koding-tips">Koding Tips</a></li>
+<li><a href="/docs/#feature-exploration">Feature Exploration</a></li>
 <li><a href="https://github.com/koding/docs/wiki">Wiki</a></li>
 <li><a href="https://github.com/koding/docs/issues/new">Submit an Issue</a></li>
 </ul>
@@ -48,7 +47,7 @@ mirrors the steps below. It covers both App, and Manual,&nbsp;installations.</p>
 <p>In this tutorial, i am going to use the terminology of “Home” and “Koding”
 machines. Home being whatever the machine you are using to connect to
 Koding with. Koding being the machine that is receiving the connection.
-Home -&gt;&nbsp;Koding.</p>
+<code>Home -&gt; Koding</code>.</p>
 <p>On the home machine, you will need a public rsa key <em>(usually found
 in <code>~/.ssh/id_rsa.pub</code>)</em>. If you need to generate one, please
 <a href="https://help.github.com/articles/generating-ssh-keys">refer to the Github tutorial on this</a>.
@@ -92,21 +91,48 @@ here is my connection command: <code>ssh vm-0.leeolayvar.koding.kd.io</code>.</p
 <p>You will have to enter your local <span class="caps">SSH</span> password, if you chose one when you
 created your key. After that, presented with <code>username@vm-X:~$</code>, singaling
 that you have connected&nbsp;successfully.</p>
-<h4>Possible Gotcha:&nbsp;~/.ssh/authorized_keys</h4>
-<p>You do <em>not</em> need to use authorized_keys in the Koding VMs. The
-Account Settings -&gt; <span class="caps">SSH</span> Keys takes care of the authorization for&nbsp;you.</p>
-<h4>Possible Gotcha: Agent admitted&nbsp;failure?</h4>
+<p>This step has quite a few Gotchas so please review them&nbsp;below.</p>
+<p>Two likely gotchas, are
+<a href="/docs/guides/ssh-into-your-vm/#agentfailure">Possible Gotchas: Agent Failure</a> and
+<a href="/docs/guides/ssh-into-your-vm/#openbrowser">Possible Gotchas: ssh_exchange_identification</a>&nbsp;below.</p>
+<h3>Error: Could not&nbsp;chdir</h3>
+<p>This “error” can be ignored. I&#39;m not sure what exactly causes it, but
+everyone experiences it and it does not cause any problems.
+<a href="https://koding.com/kiwigeraint">@kiwigeraint</a> says to simply ignore it.&nbsp;:)</p>
+</li>
+</ol>
+<h2>Confirming your&nbsp;Installation</h2>
+<p>The best way to confirm your installation is simply by connecting to your
+Koding <span class="caps">VM</span>. For information on this, see Step #3&nbsp;above.</p>
+<h2>Possible&nbsp;Gotchas</h2>
+<p><a name="agentfailure" class="anchor"></a></p>
+<h3>Agent admitted&nbsp;failure?</h3>
 <p>If you receive an error when you attempt to connect, matching the following&nbsp;description:</p>
 <pre><code>Agent admitted failure to sign using the key.</code></pre>
 <p>Then run the command <code>ssh-add</code>. For additional information on this gotcha,
 see the
 <a href="https://help.github.com/articles/error-agent-admitted-failure-to-sign">Github Help Page</a>
 on the&nbsp;subject.</p>
-</li>
-</ol>
-<h2>Confirming your&nbsp;Installation</h2>
-<p>The best way to confirm your installation is simply by connecting to your
-Koding <span class="caps">VM</span>. For information on this, see Step #3&nbsp;above.</p>
+<p><a name="openbrowser" class="anchor"></a></p>
+<h3>ssh_exchange_identification / Keep Koding Open in&nbsp;Browser</h3>
+<p>Until Always-On VMs are available, Koding will shut down your <span class="caps">VM</span> after
+approximately ~20 minutes. To ensure that you are able to connect properly
+make sure you have your Broser open <strong>and logged in</strong> to&nbsp;Koding.com.</p>
+<p>If you experience the following&nbsp;error:</p>
+<pre><code>ssh_exchange_identification: Connection closed by remote host</code></pre>
+<p>Your <span class="caps">VM</span> being “off” is the most likely culprit. You can ensure it is on by
+visiting it&#39;s direct url, such as <a href="http://vm-0.username.kd.io">http://vm-0.username.kd.io</a>, and ensuring
+you are presented with your Hello World Apache response. If you receive
+an error indicating that <span class="caps">VM</span> does not exist or is not on, you should have a
+good idea why SSH is failing to&nbsp;connect.</p>
+<p>If your <span class="caps">VM</span> is toggled off, it can be turned on by going to
+<a href="https://koding.com/Develop">koding/Develop</a> and looking for your <span class="caps">VM</span> under
+<strong>Your Environments</strong>, in the lower left. An image is below for reference:
+<img src="/docs/guides/ssh-into-your-vm/onvm.png" alt="Make sure VM is ON"></p>
+<p><a name="authorizedkeys" class="anchor"></a></p>
+<h3>~/.ssh/authorized_keys</h3>
+<p>You do <em>not</em> need to use authorized_keys in the Koding VMs. The
+Account Settings -&gt; <span class="caps">SSH</span> Keys takes care of the authorization for&nbsp;you.</p>
 <h2>Additional&nbsp;Resources</h2>
 <ul>
 <li><a href="https://help.github.com/articles/error-agent-admitted-failure-to-sign">Agent Failure&nbsp;Information</a></li>
